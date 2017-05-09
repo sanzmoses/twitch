@@ -13,3 +13,5 @@ $(document).ready(function(){
 
 });
 
+var test = "http://www.zacharydurland.com/twitch-app/";
+
