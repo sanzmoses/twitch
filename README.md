@@ -1,3 +1,3 @@
 # rqm
-Front-End Project
-RQM (Random Qoute Machine)
+Front-End Project [API Section]
+Twitch App
