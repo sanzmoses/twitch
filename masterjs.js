@@ -15,3 +15,4 @@ $(document).ready(function(){
 
 var test = "http://www.zacharydurland.com/twitch-app/";
 var link = "https://wind-bow.glitch.me/twitch-api/channels/ogamingsc2?callback=?";
+https://wind-bow.glitch.me/twitch-api/streams/passwordgamer?callback=?
