@@ -3,10 +3,16 @@ body{
   background-color: #EEEEEE;
 }
 
+hr{
+  margin-top: 0px;
+  margin-bottom: 0px;
+  width: 100%;
+}
+
 .head{
   width: 100%;
-  background-color: #545454;
-  color: white;
+  background-color: white;
+  color: #545454;
 }
 
 .header{
@@ -33,7 +39,7 @@ body{
   padding: 5px 10px 5px 10px;
   width: 33.33%;
   text-align: center;
-  background-color: #2BF093;
+  background-color: white;
   height: 40px;
   vertical-align: center;
   line-height: 30px;
@@ -52,5 +58,22 @@ body{
 
 .bg-green{
   height: 420px;
-  background-color: #1DCD7A;
+  background-color: white;
+  color: black;
+  padding-left: 10px;
+}
+
+.flex-container{
+  display: flex;
+  width: 130%;
+}
+
+.flex-item-1{
+  width: 20%;
+  line-height: 40px;
+}
+
+.flex-item-2{
+  width: 60%;
+  line-height: 40px;
 }
