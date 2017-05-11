@@ -138,6 +138,10 @@ counter = channel.length;
         //pm me in my fb account or email me @ sanzmoses@gmail.com
         //i would really appreciate it
 
+        //what im trying to do here is, get the right results by reloading
+        //the page, it gets the job done.... sometimes it works, sometimes
+        //it does not. I am still noob at javascript.
+
         try{
             console.log(online[0].names);
             console.log(online[0].logo);
