@@ -1,5 +1,8 @@
-console.log("Fuckers");
+"use strict";
 
+console.log("Fuckers");
+var g = "global fuckers";
+var counter;
 var arr = [];
 var online = [];
 var offline = [];
@@ -18,10 +21,25 @@ $(document).ready(function(){
 var channel = ["OgamingSC2", "freecodecamp", "cretetion", "p4wnyhof", "comster404", "sanzillion"];
 var channels = ["OgamingSC2", "freecodecamp","comster404"];
 
+   var box = $('.bg-green');
+   //box.css("height", "0px"); //set property
+   //box.animate({height: "420px"}, 1000);
+
+   $('li').on("click", function(){
+        var id = $(this).attr('id');
+        var element = $('#'+id);
+        if(id){
+            element.addClass('focus');
+            element.siblings().removeClass();
+        }
+
+   });
+   //console.log($('.flex-container').height());
+
 channel.forEach(checkstream); //for every channels get data
+counter = channel.length;
 
     function checkstream(name, index){
-        console.log(index + " " + (channel.length-1));
         var name = name;
         var index = index;
         $.ajax({ 
@@ -37,25 +55,32 @@ channel.forEach(checkstream); //for every channels get data
                 arr[index].url = data.url;
                 checkchannel(name, index);
 
-                if(index === channel.length-1) {
-                    processing(arr);
-                }
+                setTimeout(function() {
+                    console.log(index + ': ' + counter);
+                    counter -= 1;
+                    if ( counter === 0){
+                        processing(arr);
+                    }
+                }, counter);
             },
             error: function(){
                 arr[index] = [];
                 arr[index].names = name;
                 arr[index].stat = "Nonexistent";
 
-                if(index === channel.length-1) {
-                    processing(arr);
-                }
+                setTimeout(function() {
+                    console.log(index + ': ' + counter);
+                    counter -= 1;
+                    if ( counter === 0){
+                        processing(arr);
+                    }
+                }, counter);
             }
         });
     }
 
-    function checkchannel(name, index){
-        var name = name;
-        var index = index;
+    var checkchannel = function(name, index){
+
         $.ajax({ 
             type:"GET",
             url: "https://api.twitch.tv/kraken/streams/" + name,
@@ -75,44 +100,52 @@ channel.forEach(checkstream); //for every channels get data
         });
     }
 
-    function processing(array){
-
+    var processing = function(array){
+        //console.log(g);
+        
         for(var x = 0; x < array.length; x++){
-            console.log("No. " + x);
-            if(arr[x].stat === "Streaming"){
+            console.log(x +" "+arr[x].stat);
+            if(arr[x].stat == "Streaming"){
                 online.push(arr[x]);
             }
-            else if(arr[x].stat === "NotStreaming"){
+            else if(arr[x].stat == "NotStreaming"){
                 offline.push(arr[x]);
             }
             else{
                 basura.push(arr[x]);
             }
         }
+        //this try catch block is for getting the right results
+        //bcoz I honestly dont know why sometimes my code does not work
+        try{
+            console.log(online[0].names);
+            console.log(online[0].logo);
+            console.log(online[1].names);
+            output();
+        }
+        catch(err){
+            location.reload();
+        }
 
-        console.log(online);
-        console.log(offline);
-        console.log(basura);
+    }
+
+    var output = function(){
+                $(".tb").empty();
+        for(var y = 0; y < online.length; y++){
+            $(".tb").append('<tr class="online"><td width="20%"><img src="'+online[y].logo+'" class="img"></td><td width="60%"><a href="'+online[y].url+'" target="_blank"><b>'+online[y].names+'</b></a><a href="'+online[y].url+'" target="_blank">Streaming: '+online[y].stream+'</a></td><td width="20%"><i class="fa fa-check"></i><a href="#"></a></td></tr>');
+        }
+
+        for(var y = 0; y < offline.length; y++){
+            $(".tb").append('<tr class="offline"><td width="20%"><img src="'+offline[y].logo+'" class="img"></td><td width="60%"><a href="'+offline[y].url+'" target="_blank"><b>'+offline[y].names+'</b></a><p>Not Streaming</p></td><td width="20%"><i class="fa fa-close"></i><a href="#"></a></td></tr>');
+        }
+
+        for(var y = 0; y < basura.length; y++){
+            $(".tb").append('<tr class="nada"><td width="20%"><img src="x.jpg" class="img"></td><td width="60%"><p><b>'+basura[y].names+'</b></p><p>Account dont exist!</p></td><td width="20%"><i class="fa fa-exclamation-circle"></i><a href="#"></a></td></tr>');
+        }
     }
 
 
 
-   var box = $('.bg-green');
-   $('.out').css("opacity", "0");
-   //box.css("height", "0px"); //set property
-   //box.animate({height: "420px"}, 1000);
-
-   $('li').on("click", function(){
-        var id = $(this).attr('id');
-        var element = $('#'+id);
-        if(id){
-            element.addClass('focus');
-            element.siblings().removeClass();
-        }
-
-
-   });
-   //console.log($('.flex-container').height());
 });
 
 var test = "http://www.zacharydurland.com/twitch-app/";

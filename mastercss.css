@@ -60,8 +60,8 @@ hr{
   height: 420px;
   background-color: white;
   color: black;
-  padding-left: 10px;
 }
+
 
 .flex-container{
   display: flex;
@@ -76,4 +76,22 @@ hr{
 .flex-item-2{
   width: 60%;
   line-height: 40px;
+}
+
+
+.offline{
+  color: black;
+  background-color: #E6B552;
+}
+.online{
+  color: black;
+  background-color: #4AAEEE;
+}
+.nada{
+  color: white;
+  background-color: #E04E4E;
+}
+
+.img{
+  height: 70px;
 }
