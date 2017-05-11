@@ -1,6 +1,7 @@
 
 body{
   background-color: #EEEEEE;
+  font-family: 'Aldrich', sans-serif;
 }
 
 hr{
@@ -94,4 +95,89 @@ hr{
 
 .img{
   height: 70px;
+}
+
+#td{
+  padding-left: 10px; 
+}
+
+.online i{
+  color: green;
+}
+
+.offline i{
+  color: red;
+}
+
+.tb a {
+  color: black;
+  text-decoration: none;
+}
+
+.tb a:hover{
+  color: white;
+}
+
+.trans{
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.loader {
+  position: absolute;
+  top: 30%;
+  left: 38%;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid blue;
+  border-bottom: 16px solid blue;
+  width: 80px;
+  height: 80px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); 
+    border-top: 16px solid #E52B2B; 
+    border-bottom: 16px solid #FFEC60; }
+  50% {
+    border-top: 16px solid #FFEC60;
+    border-bottom: 16px solid #E52B2B; 
+  }
+  100% { -webkit-transform: rotate(360deg); 
+    border-top: 16px solid #E52B2B; 
+    border-bottom: 16px solid #FFEC60; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); 
+    border-top: 16px solid #E52B2B; 
+    border-bottom: 16px solid #FFEC60;}
+  50%{
+    border-top: 16px solid #FFEC60;
+    border-bottom: 16px solid #E52B2B;
+  }
+  100% { transform: rotate(360deg); 
+    border-top: 16px solid #E52B2B; 
+    border-bottom: 16px solid #FFEC60; }
+}
+
+.portfolio{
+  margin-top: 20px;
+  color: #E52B2B;
+}
+
+.portfolio a{
+  text-decoration: none;
+  color: #E52B2B;
+}
+
+.portfolio a:hover{
+  color: #1DCD7A;
+}
+
+table{
+  margin-top: -1px;
 }
