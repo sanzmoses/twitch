@@ -22,6 +22,7 @@ var track = '';
 $(document).ready(function(){
 
 var channel = ["OgamingSC2", "freecodecamp", "cretetion", "p4wnyhof", "comster404", "sanzillion"];
+//for test channel => channels
 var channels = ["OgamingSC2", "freecodecamp","comster404"];
 
    var box = $('.bg-green');
@@ -32,11 +33,11 @@ var channels = ["OgamingSC2", "freecodecamp","comster404"];
    $('li').on("click", function(){
         var id = $(this).attr('id');
         var element = $('#'+id);
+        //this is for navbar
         if(id){
             element.addClass('focus');
             element.siblings().removeClass();
         }
-
    });
    //console.log($('.flex-container').height());
 
@@ -44,6 +45,8 @@ channel.forEach(checkstream); //for every channels get data
 counter = channel.length;
 
     function checkstream(name, index){
+        //check for channel if existent
+        //if not, go to error ajax parameter
         var name = name;
         var index = index;
         $.ajax({ 
@@ -57,8 +60,10 @@ counter = channel.length;
                 arr[index].names = name;
                 arr[index].logo = data.logo;
                 arr[index].url = data.url;
+                //if channel found, check if online
                 checkchannel(name, index);
-
+                //assign counter, if everything done,
+                //proceed to processing function
                 setTimeout(function() {
                     console.log(index + ': ' + counter);
                     counter -= 1;
@@ -71,7 +76,8 @@ counter = channel.length;
                 arr[index] = [];
                 arr[index].names = name;
                 arr[index].stat = "Nonexistent";
-
+                //assign counter, if everything done,
+                //proceed to processing function
                 setTimeout(function() {
                     console.log(index + ': ' + counter);
                     counter -= 1;
@@ -84,7 +90,7 @@ counter = channel.length;
     }
 
     var checkchannel = function(name, index){
-
+        //checking for streams if not, assign NotStreaming to stat
         $.ajax({ 
             type:"GET",
             url: "https://api.twitch.tv/kraken/streams/" + name,
@@ -106,8 +112,10 @@ counter = channel.length;
 
     var processing = function(array){
         //console.log(g);
-        
+        //arrange/sort channels from online, offline and nonexistent
         for(var x = 0; x < array.length; x++){
+            //try deleting this log and the problem starts to occur
+            //and i dont fucking know why!!!
             console.log(x +" "+arr[x].stat);
             if(arr[x].stat == "Streaming"){
                 online.push(arr[x]);
@@ -119,12 +127,20 @@ counter = channel.length;
                 basura.push(arr[x]);
             }
         }
+
         //this try catch block is for getting the right results
         //bcoz I honestly dont know why sometimes my code does not work
+        //it really is fucking messy, ive tried for hours to understand 
+        //why but to no avail, i suspected various factors like how
+        //is javascript interpreted/compiled, or just the API itself
+        //or is it somewhere in my ajax code...
+        //if ever you have read this and know what might be the problem
+        //pm me in my fb account or email me @ sanzmoses@gmail.com
+        //i would really appreciate it
+
         try{
             console.log(online[0].names);
             console.log(online[0].logo);
-            console.log(online[1].names);
             output();
         }
         catch(err){
@@ -134,6 +150,7 @@ counter = channel.length;
     }
 
     var output = function(){
+        //output for everything
         var rm = function(){
             load.remove();
             tb.animate({opacity: "1"});
@@ -154,7 +171,7 @@ counter = channel.length;
     }
 
     var output1 = function(){
-        console.log("online output");
+        //console.log("online output");
         tb.animate({opacity: "1"});
         for(var y = 0; y < online.length; y++){
                 tb.append('<tr class="online"><td width="20%"><img src="'+online[y].logo+'" class="img"></td><td width="70%" id="td"><a href="'+online[y].url+'" target="_blank"><b>'+online[y].names+'</b></a><br><a href="'+online[y].url+'" target="_blank">Streaming: '+online[y].stream+'</a></td><td width="10%"><i class="fa fa-check"></i><a href="#"></a></td></tr><hr>');
@@ -162,7 +179,7 @@ counter = channel.length;
     }
 
     var output2 = function(){
-        console.log("offline output");
+        //console.log("offline output");
         tb.animate({opacity: "1"});
         for(var y = 0; y < offline.length; y++){
                 tb.append('<tr class="offline"><td width="20%"><img src="'+offline[y].logo+'" class="img"></td><td width="70%" id="td"><a href="'+offline[y].url+'" target="_blank"><b>'+offline[y].names+'</b></a><br><p>Not Streaming</p></td><td width="10%"><i class="fa fa-close"></i><a href="#"></a></td></tr><hr>');
@@ -175,9 +192,9 @@ counter = channel.length;
         }
         else{
           track = "ol";
-            console.log("online");
+            //console.log("online");
             tb.animate({opacity: "0"}, 100, function(){
-                console.log("Trying to empty");
+                //console.log("Trying to empty");
                 tb.empty();
                 output1();
             });  
@@ -190,9 +207,9 @@ counter = channel.length;
         }
         else{
             track = "of";
-            console.log("offline");
+            //console.log("offline");
             tb.animate({opacity: "0"}, 100, function(){
-                console.log("trying to empty");
+                //console.log("trying to empty");
                 tb.empty();
                 output2();
             });
