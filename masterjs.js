@@ -21,6 +21,7 @@ var channels = ["OgamingSC2", "freecodecamp","comster404"];
 channel.forEach(checkstream); //for every channels get data
 
     function checkstream(name, index){
+        console.log(index + " " + (channel.length-1));
         var name = name;
         var index = index;
         $.ajax({ 
@@ -31,22 +32,22 @@ channel.forEach(checkstream); //for every channels get data
             },
             success: function(data){
                 arr[index] = [];
-                arr[index].name = name;
+                arr[index].names = name;
                 arr[index].logo = data.logo;
                 arr[index].url = data.url;
                 checkchannel(name, index);
 
-                if(index+1 === channel.length) {
-                    processing();
+                if(index === channel.length-1) {
+                    processing(arr);
                 }
             },
             error: function(){
                 arr[index] = [];
-                arr[index].name = name;
-                arr[index].status = "Nonexistent";
+                arr[index].names = name;
+                arr[index].stat = "Nonexistent";
 
-                if(index+1 === channel.length) {
-                    processing();
+                if(index === channel.length-1) {
+                    processing(arr);
                 }
             }
         });
@@ -63,10 +64,10 @@ channel.forEach(checkstream); //for every channels get data
             },
             success: function(data){
                 if(data.stream === null){
-                    arr[index].status = "NotStreaming";
+                    arr[index].stat = "NotStreaming";
                 }
                 else{
-                    arr[index].status = "Streaming";
+                    arr[index].stat = "Streaming";
                     arr[index].stream = data.stream.game;
                 }
                 return true;
@@ -74,15 +75,14 @@ channel.forEach(checkstream); //for every channels get data
         });
     }
 
-    function processing(){
-        console.log("All done!");
-        console.log(arr.length);
+    function processing(array){
 
-        for(var x = 0; x < arr.length; x++){
-            if(arr[x].status == "Streaming"){
+        for(var x = 0; x < array.length; x++){
+            console.log("No. " + x);
+            if(arr[x].stat === "Streaming"){
                 online.push(arr[x]);
             }
-            else if(arr[x].status == "NotStreaming"){
+            else if(arr[x].stat === "NotStreaming"){
                 offline.push(arr[x]);
             }
             else{
